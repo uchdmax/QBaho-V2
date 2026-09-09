@@ -1,0 +1,1 @@
+const bcrypt = require('bcryptjs'); const hash = '$2b$10$VdBlZvtuMxeOViyXRLtyLepn7ikmsYTgQFKwiseYXao5Wl7doTndS'; ['admin', 'admin123', 'smilebaby', '123456'].forEach(p => console.log(p, bcrypt.compareSync(p, hash)))

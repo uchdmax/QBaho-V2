@@ -1,0 +1,238 @@
+/**
+ * QApp Design Tokens
+ * Apple-inspired Glassmorphism & Mesh Gradient Design System
+ * Brand colors: Indigo (#6366f1) & Emerald (#10b981)
+ */
+
+:root {
+  /* ==========================================================================
+     1. COLORS - BRAND & ACCENTS
+     ========================================================================== */
+  --color-primary: #6366f1; /* Indigo */
+  --color-primary-light: #818cf8;
+  --color-primary-dark: #4f46e5;
+  --color-primary-rgb: 99, 102, 241;
+
+  --color-secondary: #10b981; /* Emerald */
+  --color-secondary-light: #34d399;
+  --color-secondary-dark: #059669;
+  --color-secondary-rgb: 16, 185, 129;
+
+  --color-accent-purple: #8b5cf6;
+  --color-accent-purple-rgb: 139, 92, 246;
+  --color-accent-cyan: #06b6d4;
+  --color-accent-cyan-rgb: 6, 182, 212;
+  --color-accent-amber: #f59e0b;
+  --color-accent-amber-rgb: 245, 158, 11;
+  --color-accent-rose: #f43f5e;
+  --color-accent-rose-rgb: 244, 63, 94;
+
+  /* Semantic Colors */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
+  --color-danger: #f87171;
+
+  /* ==========================================================================
+     2. MESH GRADIENT COLORS & GLOWS
+     ========================================================================== */
+  --mesh-base-dark: #080a12;
+  --mesh-indigo-1: rgba(99, 102, 241, 0.28);
+  --mesh-indigo-2: rgba(79, 70, 229, 0.18);
+  --mesh-emerald-1: rgba(16, 185, 129, 0.22);
+  --mesh-emerald-2: rgba(5, 150, 105, 0.14);
+  --mesh-purple-1: rgba(139, 92, 246, 0.20);
+  --mesh-cyan-1: rgba(6, 182, 212, 0.16);
+  --mesh-rose-1: rgba(244, 63, 94, 0.15);
+
+  --gradient-brand: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #10b981 100%);
+  --gradient-primary: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  --gradient-secondary: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  --gradient-emerald: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  --gradient-accent: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+  --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
+  --gradient-specular: linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0) 60%);
+
+  /* ==========================================================================
+     3. BACKGROUNDS & SURFACES (Dark Glass Fallbacks)
+     ========================================================================== */
+  --bg-primary: var(--tg-theme-bg-color, #080a12);
+  --bg-secondary: var(--tg-theme-secondary-bg-color, #101422);
+  --bg-app: #080a12;
+  --bg-card: rgba(255, 255, 255, 0.05);
+  --bg-card-hover: rgba(255, 255, 255, 0.09);
+  --bg-card-active: rgba(255, 255, 255, 0.14);
+  --bg-surface-1: rgba(18, 22, 34, 0.65);
+  --bg-surface-2: rgba(26, 32, 50, 0.75);
+  --bg-surface-3: rgba(35, 43, 66, 0.85);
+  --bg-surface-elevated: rgba(22, 27, 44, 0.85);
+  --bg-modal: rgba(10, 13, 24, 0.92);
+  --bg-overlay: rgba(3, 5, 10, 0.78);
+
+  /* ==========================================================================
+     4. GLASSMORPHISM, BLURS & BORDERS (visionOS Style)
+     ========================================================================== */
+  /* Blur Radii */
+  --glass-blur-sm: blur(16px);
+  --glass-blur-md: blur(24px);
+  --glass-blur-lg: blur(40px);
+  --glass-blur-xl: blur(60px);
+  --glass-blur: blur(40px); /* Deep blur default */
+
+  /* Glass Backgrounds */
+  --glass-bg: rgba(255, 255, 255, 0.06);
+  --glass-bg-subtle: rgba(255, 255, 255, 0.03);
+  --glass-bg-medium: rgba(255, 255, 255, 0.08);
+  --glass-bg-strong: rgba(255, 255, 255, 0.14);
+  --glass-bg-hover: rgba(255, 255, 255, 0.10);
+  --glass-bg-active: rgba(255, 255, 255, 0.16);
+
+  --glass-dark-base: rgba(12, 16, 28, 0.65);
+  --glass-dark-medium: rgba(16, 22, 38, 0.80);
+  --glass-dark-strong: rgba(20, 28, 48, 0.92);
+
+  /* Delicate Glass Borders */
+  --border-glass-delicate: 1px solid rgba(255, 255, 255, 0.08);
+  --border-glass-subtle: 1px solid rgba(255, 255, 255, 0.05);
+  --border-glass: 1px solid rgba(255, 255, 255, 0.08);
+  --border-glass-medium: 1px solid rgba(255, 255, 255, 0.14);
+  --border-glass-strong: 1px solid rgba(255, 255, 255, 0.22);
+  --border-glass-accent: 1px solid rgba(99, 102, 241, 0.35);
+  --border-glass-secondary: 1px solid rgba(16, 185, 129, 0.35);
+
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-border-hover: rgba(255, 255, 255, 0.16);
+  --glass-border-accent: rgba(99, 102, 241, 0.4);
+
+  /* ==========================================================================
+     5. TYPOGRAPHY & TEXT COLORS
+     ========================================================================== */
+  --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, "Inter", sans-serif;
+  --font-family-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "Inter", sans-serif;
+  --font-family-mono: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
+
+  /* Font Sizes */
+  --text-2xs: 0.6875rem; /* 11px */
+  --text-xs: 0.75rem;     /* 12px */
+  --text-sm: 0.875rem;    /* 14px */
+  --text-base: 1rem;      /* 16px */
+  --text-lg: 1.125rem;    /* 18px */
+  --text-xl: 1.25rem;     /* 20px */
+  --text-2xl: 1.5rem;     /* 24px */
+  --text-3xl: 1.875rem;   /* 30px */
+  --text-4xl: 2.25rem;    /* 36px */
+
+  /* Font Weights */
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  --font-heavy: 800;
+
+  /* Line Heights */
+  --leading-tight: 1.2;
+  --leading-snug: 1.35;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+
+  /* Letter Spacing */
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.025em;
+
+  /* Text Colors */
+  --text-primary: var(--tg-theme-text-color, #ffffff);
+  --text-secondary: rgba(255, 255, 255, 0.72);
+  --text-tertiary: rgba(255, 255, 255, 0.45);
+  --text-muted: #94a3b8;
+  --text-dimmed: #64748b;
+  --text-accent: var(--tg-theme-link-color, #818cf8);
+  --text-inverse: #080a12;
+
+  /* ==========================================================================
+     6. SPACING & LAYOUT (4px base grid)
+     ========================================================================== */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* ==========================================================================
+     7. BORDER RADII (Apple-style smooth rounding)
+     ========================================================================== */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-full: 9999px;
+
+  /* ==========================================================================
+     8. SHADOWS & LIGHTING EFFECTS
+     ========================================================================== */
+  --shadow-sm: 0 2px 8px -1px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 16px 36px -6px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 24px 50px -10px rgba(0, 0, 0, 0.75);
+
+  /* visionOS Specular Inner Highlight + Deep Drop Shadow */
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.45), inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+  --shadow-glass-hover: 0 14px 44px 0 rgba(0, 0, 0, 0.55), inset 0 1px 0 0 rgba(255, 255, 255, 0.20);
+  --shadow-glass-active: 0 4px 20px 0 rgba(0, 0, 0, 0.35), inset 0 1px 0 0 rgba(255, 255, 255, 0.10);
+  --shadow-glass-elevated: 0 20px 50px 0 rgba(0, 0, 0, 0.65), inset 0 1px 0 0 rgba(255, 255, 255, 0.16);
+
+  --shadow-glow-primary: 0 0 28px rgba(99, 102, 241, 0.35);
+  --shadow-glow-secondary: 0 0 28px rgba(16, 185, 129, 0.35);
+  --shadow-glow-purple: 0 0 28px rgba(139, 92, 246, 0.35);
+
+  --inner-highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+  --inner-highlight-strong: inset 0 1px 0 0 rgba(255, 255, 255, 0.22);
+
+  /* ==========================================================================
+     9. TRANSITIONS & TIMING
+     ========================================================================== */
+  --ease-apple: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  --transition-fast: 150ms cubic-bezier(0.25, 1, 0.5, 1);
+  --transition-base: 250ms cubic-bezier(0.25, 1, 0.5, 1);
+  --transition-slow: 400ms cubic-bezier(0.25, 1, 0.5, 1);
+  --transition-transform: transform 250ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  /* ==========================================================================
+     10. Z-INDEX SYSTEM
+     ========================================================================== */
+  --z-base: 1;
+  --z-card: 10;
+  --z-header: 100;
+  --z-tab: 100;
+  --z-nav: 200;
+  --z-modal: 200;
+  --z-drawer: 500;
+  --z-toast: 1000;
+  --z-tooltip: 2000;
+
+  /* ==========================================================================
+     11. TELEGRAM WEBAPP THEME FALLBACK INTERFACE
+     ========================================================================== */
+  --tg-bg: var(--tg-theme-bg-color, var(--bg-primary));
+  --tg-text: var(--tg-theme-text-color, var(--text-primary));
+  --tg-hint: var(--tg-theme-hint-color, var(--text-secondary));
+  --tg-link: var(--tg-theme-link-color, var(--color-primary-light));
+  --tg-btn: var(--tg-theme-button-color, var(--color-primary));
+  --tg-btn-text: var(--tg-theme-button-text-color, #ffffff);
+  --tg-secondary-bg: var(--tg-theme-secondary-bg-color, var(--bg-secondary));
+  --tg-header-bg: var(--tg-theme-header-bg-color, var(--bg-primary));
+  --tg-accent-text: var(--tg-theme-accent-text-color, var(--color-primary-light));
+  --tg-section-bg: var(--tg-theme-section-bg-color, var(--bg-surface-2));
+  --tg-section-header: var(--tg-theme-section-header-text-color, var(--text-secondary));
+  --tg-destructive: var(--tg-theme-destructive-text-color, var(--color-error));
+}

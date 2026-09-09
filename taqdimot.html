@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smile Baby — Baholash Tizimi</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  :root {
+    --green: #0A9C54;
+    --green-light: #E8F8F0;
+    --green-dark: #078A49;
+    --slate-50: #f8fafc;
+    --slate-100: #f1f5f9;
+    --slate-200: #e2e8f0;
+    --slate-300: #cbd5e1;
+    --slate-400: #94a3b8;
+    --slate-500: #64748b;
+    --slate-600: #475569;
+    --slate-700: #334155;
+    --slate-800: #1e293b;
+    --slate-900: #0f172a;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--slate-900);
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+    user-select: none;
+  }
+
+  .slide {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transform: translateX(60px);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+    padding: 60px 80px;
+  }
+
+  .slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: all;
+  }
+
+  .slide.prev {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+
+  /* ── Slide 1: Title ── */
+  .slide-1 {
+    background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 40%, #f8fafc 100%);
+    text-align: center;
+  }
+  .slide-1 .logo-badge {
+    width: 90px; height: 90px;
+    background: var(--green);
+    border-radius: 24px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 42px;
+    margin-bottom: 32px;
+    box-shadow: 0 20px 60px rgba(10, 156, 84, 0.3);
+  }
+  .slide-1 h1 {
+    font-size: 56px;
+    font-weight: 900;
+    color: var(--slate-900);
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+  .slide-1 h1 span { color: var(--green); }
+  .slide-1 .subtitle {
+    font-size: 22px;
+    color: var(--slate-500);
+    font-weight: 400;
+    margin-bottom: 48px;
+  }
+  .slide-1 .meta {
+    font-size: 15px;
+    color: var(--slate-400);
+    font-weight: 500;
+  }
+  .slide-1 .meta strong { color: var(--slate-600); }
+
+  /* ── Slide 2: Problem ── */
+  .slide-2 {
+    background: linear-gradient(135deg, #fef2f2 0%, #ffffff 50%, #f8fafc 100%);
+    text-align: left;
+    padding: 60px 100px;
+  }
+  .slide-2 .section-label {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #ef4444;
+    margin-bottom: 16px;
+  }
+  .slide-2 h2 {
+    font-size: 44px;
+    font-weight: 800;
+    color: var(--slate-900);
+    margin-bottom: 48px;
+    line-height: 1.2;
+  }
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    width: 100%;
+    max-width: 1000px;
+  }
+  .problem-card {
+    background: white;
+    border: 1px solid var(--slate-100);
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+  }
+  .problem-card .icon {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+  .problem-card .icon.red { background: #fef2f2; }
+  .problem-card .icon.orange { background: #fff7ed; }
+  .problem-card .icon.yellow { background: #fefce8; }
+  .problem-card .icon.purple { background: #faf5ff; }
+  .problem-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--slate-800);
+    margin-bottom: 8px;
+  }
+  .problem-card p {
+    font-size: 15px;
+    color: var(--slate-500);
+    line-height: 1.5;
+  }
+
+  /* ── Slide 3: Solution ── */
+  .slide-3 {
+    background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 50%, #f8fafc 100%);
+    text-align: center;
+  }
+  .slide-3 .section-label {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--green);
+    margin-bottom: 16px;
+  }
+  .slide-3 h2 {
+    font-size: 44px;
+    font-weight: 800;
+    color: var(--slate-900);
+    margin-bottom: 16px;
+  }
+  .slide-3 h2 span { color: var(--green); }
+  .slide-3 .desc {
+    font-size: 20px;
+    color: var(--slate-500);
+    margin-bottom: 56px;
+    max-width: 700px;
+  }
+  .solution-flow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .flow-step {
+    background: white;
+    border: 1px solid var(--slate-100);
+    border-radius: 20px;
+    padding: 28px 24px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+  }
+  .flow-step .step-icon {
+    width: 56px; height: 56px;
+    background: var(--green-light);
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+    margin: 0 auto 14px;
+  }
+  .flow-step .step-num {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--green);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .flow-step h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--slate-800);
+    margin-bottom: 4px;
+  }
+  .flow-step p {
+    font-size: 13px;
+    color: var(--slate-400);
+  }
+  .flow-arrow {
+    font-size: 24px;
+    color: var(--green);
+    font-weight: 700;
+  }
+
+  /* ── Slide 4: Telegram ── */
+  .slide-4 {
+    background: linear-gradient(135deg, #eff6ff 0%, #ffffff 50%, #f8fafc 100%);
+    text-align: left;
+    padding: 60px 100px;
+  }
+  .slide-4 .section-label {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #2563eb;
+    margin-bottom: 16px;
+  }
+  .slide-4 h2 {
+    font-size: 44px;
+    font-weight: 800;
+    color: var(--slate-900);
+    margin-bottom: 48px;
+    line-height: 1.2;
+  }
+  .tg-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    width: 100%;
+    max-width: 1000px;
+  }
+  .tg-card {
+    background: white;
+    border: 1px solid var(--slate-100);
+    border-radius: 20px;
+    padding: 32px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+  }
+  .tg-card .tg-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .tg-badge.blue { background: #eff6ff; color: #2563eb; }
+  .tg-badge.red { background: #fef2f2; color: #ef4444; }
+  .tg-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--slate-800);
+    margin-bottom: 12px;
+  }
+  .tg-card ul {
+    list-style: none;
+    padding: 0;
+  }
+  .tg-card ul li {
+    font-size: 15px;
+    color: var(--slate-500);
+    padding: 6px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.5;
+  }
+  .tg-card ul li::before {
+    content: '✓';
+    color: var(--green);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* ── Slide 5: Benefits ── */
+  .slide-5 {
+    background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 50%, #faf5ff 100%);
+    text-align: center;
+  }
+  .slide-5 .section-label {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--green);
+    margin-bottom: 16px;
+  }
+  .slide-5 h2 {
+    font-size: 44px;
+    font-weight: 800;
+    color: var(--slate-900);
+    margin-bottom: 48px;
+  }
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1000px;
+  }
+  .benefit-card {
+    background: white;
+    border: 1px solid var(--slate-100);
+    border-radius: 20px;
+    padding: 32px 24px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+    text-align: center;
+  }
+  .benefit-card .b-icon {
+    width: 60px; height: 60px;
+    background: var(--green-light);
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    margin: 0 auto 16px;
+  }
+  .benefit-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--slate-800);
+    margin-bottom: 8px;
+  }
+  .benefit-card p {
+    font-size: 14px;
+    color: var(--slate-500);
+    line-height: 1.5;
+  }
+
+  /* ── Slide 6: Demo ── */
+  .slide-6 {
+    background: var(--green);
+    text-align: center;
+  }
+  .slide-6 h2 {
+    font-size: 60px;
+    font-weight: 900;
+    color: white;
+    margin-bottom: 20px;
+  }
+  .slide-6 p {
+    font-size: 22px;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 48px;
+    max-width: 600px;
+  }
+  .demo-steps {
+    display: flex;
+    gap: 24px;
+  }
+  .demo-step {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 28px 24px;
+    width: 180px;
+    backdrop-filter: blur(10px);
+  }
+  .demo-step .d-num {
+    font-size: 32px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 8px;
+  }
+  .demo-step h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 4px;
+  }
+  .demo-step p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 0;
+  }
+
+  /* ── Slide 7: Next Steps ── */
+  .slide-7 {
+    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f0fdf4 100%);
+    text-align: left;
+    padding: 60px 100px;
+  }
+  .slide-7 .section-label {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--green);
+    margin-bottom: 16px;
+  }
+  .slide-7 h2 {
+    font-size: 44px;
+    font-weight: 800;
+    color: var(--slate-900);
+    margin-bottom: 48px;
+  }
+  .roadmap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    width: 100%;
+    max-width: 1000px;
+  }
+  .roadmap-card {
+    background: white;
+    border: 1px solid var(--slate-100);
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.04);
+  }
+  .roadmap-card .rm-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+  }
+  .rm-badge.now { background: var(--green-light); color: var(--green); }
+  .rm-badge.soon { background: #eff6ff; color: #2563eb; }
+  .rm-badge.later { background: #faf5ff; color: #7c3aed; }
+  .rm-badge.future { background: #fff7ed; color: #ea580c; }
+  .roadmap-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--slate-800);
+    margin-bottom: 8px;
+  }
+  .roadmap-card p {
+    font-size: 14px;
+    color: var(--slate-500);
+    line-height: 1.5;
+  }
+
+  /* ── Slide 8: Thank you ── */
+  .slide-8 {
+    background: linear-gradient(135deg, var(--slate-900) 0%, #1a3a2a 100%);
+    text-align: center;
+  }
+  .slide-8 .logo-badge {
+    width: 80px; height: 80px;
+    background: var(--green);
+    border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px;
+    margin-bottom: 32px;
+    box-shadow: 0 20px 60px rgba(10, 156, 84, 0.4);
+  }
+  .slide-8 h2 {
+    font-size: 52px;
+    font-weight: 900;
+    color: white;
+    margin-bottom: 16px;
+  }
+  .slide-8 p {
+    font-size: 20px;
+    color: var(--slate-400);
+    margin-bottom: 48px;
+    max-width: 500px;
+  }
+  .slide-8 .contact {
+    font-size: 16px;
+    color: var(--green);
+    font-weight: 600;
+  }
+
+  /* ── Navigation ── */
+  .nav-bar {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(15, 23, 42, 0.9);
+    backdrop-filter: blur(12px);
+    padding: 10px 20px;
+    border-radius: 16px;
+    z-index: 1000;
+  }
+  .nav-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .nav-dot.active {
+    background: var(--green);
+    width: 28px;
+    border-radius: 5px;
+  }
+  .nav-info {
+    color: rgba(255,255,255,0.5);
+    font-size: 13px;
+    font-weight: 500;
+    margin-left: 12px;
+    min-width: 40px;
+    text-align: right;
+  }
+  .nav-arrows {
+    display: flex;
+    gap: 4px;
+    margin-left: 8px;
+  }
+  .nav-btn {
+    width: 32px; height: 32px;
+    border: none;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+  .nav-btn:hover { background: rgba(255,255,255,0.2); }
+
+  /* ── Progress bar ── */
+  .progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: var(--green);
+    transition: width 0.4s ease;
+    z-index: 1001;
+  }
+
+  /* ── Animations ── */
+  .slide.active .anim-up {
+    animation: fadeUp 0.6s ease forwards;
+  }
+  .slide.active .anim-up-d1 { animation-delay: 0.1s; opacity: 0; }
+  .slide.active .anim-up-d2 { animation-delay: 0.2s; opacity: 0; }
+  .slide.active .anim-up-d3 { animation-delay: 0.3s; opacity: 0; }
+  .slide.active .anim-up-d4 { animation-delay: 0.4s; opacity: 0; }
+  .slide.active .anim-up-d5 { animation-delay: 0.5s; opacity: 0; }
+  .slide.active .anim-up-d6 { animation-delay: 0.6s; opacity: 0; }
+  .slide.active .anim-up-d7 { animation-delay: 0.7s; opacity: 0; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .slide { padding: 40px 32px; }
+    .slide-1 h1 { font-size: 36px; }
+    .slide-2 h2, .slide-3 h2, .slide-4 h2, .slide-5 h2, .slide-7 h2 { font-size: 30px; }
+    .problem-grid, .tg-grid, .roadmap { grid-template-columns: 1fr; }
+    .benefits-grid { grid-template-columns: 1fr 1fr; }
+    .solution-flow { flex-wrap: wrap; justify-content: center; }
+    .flow-arrow { display: none; }
+    .demo-steps { flex-wrap: wrap; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Progress Bar -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- ═══════ SLIDE 1: Title ═══════ -->
+<div class="slide slide-1 active" data-slide="1">
+  <div class="logo-badge anim-up anim-up-d1">😊</div>
+  <h1 class="anim-up anim-up-d2">
+    <span>Smile Baby</span><br>
+    Baholash Tizimi
+  </h1>
+  <p class="subtitle anim-up anim-up-d3">Bemorlar fikri — sifat kaliti</p>
+  <p class="meta anim-up anim-up-d4">
+    <strong>Smile Baby Klinikasi</strong> &nbsp;·&nbsp; 2026-yil
+  </p>
+</div>
+
+<!-- ═══════ SLIDE 2: Problem ═══════ -->
+<div class="slide slide-2" data-slide="2">
+  <div class="section-label anim-up anim-up-d1">⚠️ Muammo</div>
+  <h2 class="anim-up anim-up-d2">Bemor fikrlarini bilmay<br>turib yaxshilanib bo'lmaydi</h2>
+  <div class="problem-grid">
+    <div class="problem-card anim-up anim-up-d3">
+      <div class="icon red">📋</div>
+      <h3>Qo'lda yig'ish</h3>
+      <p>Qog'oz anketalar yo'qolib ketadi, natijalar kechikadi va umumlashtirish qiyin</p>
+    </div>
+    <div class="problem-card anim-up anim-up-d4">
+      <div class="icon orange">🔇</div>
+      <h3>Fikr eshitilmaydi</h3>
+      <p>Bemor noroziligini aytmay ketadi, muammo yashirin qoladi</p>
+    </div>
+    <div class="problem-card anim-up anim-up-d5">
+      <div class="icon yellow">⏰</div>
+      <h3>Kechikkan javob</h3>
+      <p>Salbiy tajriba faqat haftalik/oylik yig'ilishda ma'lum bo'ladi</p>
+    </div>
+    <div class="problem-card anim-up anim-up-d6">
+      <div class="icon purple">📊</div>
+      <h3>Statistika yo'q</h3>
+      <p>Qaysi bo'lim yaxshi, qaysi yomon — aniq ma'lumot yo'q</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ SLIDE 3: Solution Flow ═══════ -->
+<div class="slide slide-3" data-slide="3">
+  <div class="section-label anim-up anim-up-d1">✅ Yechim</div>
+  <h2 class="anim-up anim-up-d2">
+    <span>30 soniyada</span> baholash — <span>3 soniyada</span> xabar
+  </h2>
+  <p class="desc anim-up anim-up-d3">Bemor QR kodni skanerlab, bir necha bosish bilan baholaydi. Natija shu zahoti Telegramga tushadi.</p>
+  <div class="solution-flow">
+    <div class="flow-step anim-up anim-up-d4">
+      <div class="step-icon">📱</div>
+      <div class="step-num">1-qadam</div>
+      <h4>QR skanerlash</h4>
+      <p>Telefon kamerasi</p>
+    </div>
+    <div class="flow-arrow anim-up anim-up-d4">→</div>
+    <div class="flow-step anim-up anim-up-d5">
+      <div class="step-icon">⭐</div>
+      <div class="step-num">2-qadam</div>
+      <h4>Baholash</h4>
+      <p>Yulduzlar + izoh</p>
+    </div>
+    <div class="flow-arrow anim-up anim-up-d5">→</div>
+    <div class="flow-step anim-up anim-up-d6">
+      <div class="step-icon">📨</div>
+      <div class="step-num">3-qadam</div>
+      <h4>Yuborish</h4>
+      <p>Bir tugma bosish</p>
+    </div>
+    <div class="flow-arrow anim-up anim-up-d6">→</div>
+    <div class="flow-step anim-up anim-up-d7">
+      <div class="step-icon">✈️</div>
+      <div class="step-num">Natija</div>
+      <h4>Telegram</h4>
+      <p>Real vaqtda xabar</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ SLIDE 4: Telegram ═══════ -->
+<div class="slide slide-4" data-slide="4">
+  <div class="section-label anim-up anim-up-d1">✈️ Telegram Integratsiya</div>
+  <h2 class="anim-up anim-up-d2">Ikki darajali ogohlantirish<br>tizimi</h2>
+  <div class="tg-grid">
+    <div class="tg-card anim-up anim-up-d3">
+      <div class="tg-badge blue">📢 Admin guruh</div>
+      <h3>Barcha baholar</h3>
+      <ul>
+        <li>Har bir yangi baho avtomatik guruhga tushadi</li>
+        <li>Bo'lim nomi, yulduzlar, izoh, vaqt — barchasi ko'rinadi</li>
+        <li>Jamoaviy monitoring va shaffoflik</li>
+      </ul>
+    </div>
+    <div class="tg-card anim-up anim-up-d4">
+      <div class="tg-badge red">🚨 Kritik ogohlantirish</div>
+      <h3>Salbiy baholar → Adminga shaxsan</h3>
+      <ul>
+        <li>3 yulduz va undan past baholar alohida signal</li>
+        <li>Telefon raqami qoldirilsa — darhol xabar</li>
+        <li>Muammoga tezkor javob berish imkoniyati</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ SLIDE 5: Benefits ═══════ -->
+<div class="slide slide-5" data-slide="5">
+  <div class="section-label anim-up anim-up-d1">🏆 Afzalliklar</div>
+  <h2 class="anim-up anim-up-d2">Nima uchun bu tizim kerak?</h2>
+  <div class="benefits-grid">
+    <div class="benefit-card anim-up anim-up-d3">
+      <div class="b-icon">⚡</div>
+      <h3>Real vaqt</h3>
+      <p>Baho berilgan zahoti xabar keladi. Kechikish yo'q</p>
+    </div>
+    <div class="benefit-card anim-up anim-up-d4">
+      <div class="b-icon">💰</div>
+      <h3>Sinov davri</h3>
+      <p>Tizim samaradorligini amalda ko'rish uchun ma'lum muddat bepul taqdim etiladi</p>
+    </div>
+    <div class="benefit-card anim-up anim-up-d5">
+      <div class="b-icon">📱</div>
+      <h3>Oson</h3>
+      <p>Bemor uchun — 30 soniya. Ilova yuklab olish shart emas</p>
+    </div>
+    <div class="benefit-card anim-up anim-up-d3">
+      <div class="b-icon">🔒</div>
+      <h3>Xavfsiz</h3>
+      <p>Ma'lumotlar o'z serverimizda, begona xizmatga bog'liq emas</p>
+    </div>
+    <div class="benefit-card anim-up anim-up-d4">
+      <div class="b-icon">📊</div>
+      <h3>Statistika</h3>
+      <p>Har bir bo'limning reytingi, dinamikasi kuzatiladi</p>
+    </div>
+    <div class="benefit-card anim-up anim-up-d5">
+      <div class="b-icon">🏥</div>
+      <h3>Brendlangan</h3>
+      <p>Klinika ranglari va logotipi bilan professional ko'rinish</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ SLIDE 6: Demo ═══════ -->
+<div class="slide slide-6" data-slide="6">
+  <h2 class="anim-up anim-up-d1">🔴 Jonli Demo</h2>
+  <p class="anim-up anim-up-d2">Hozir birga sinab ko'ramiz!</p>
+  <div class="demo-steps">
+    <div class="demo-step anim-up anim-up-d3">
+      <div class="d-num">01</div>
+      <h4>QR skanerlang</h4>
+      <p>Telefon kamerasini yoqing</p>
+    </div>
+    <div class="demo-step anim-up anim-up-d4">
+      <div class="d-num">02</div>
+      <h4>Baholang</h4>
+      <p>Yulduzlarni bosing</p>
+    </div>
+    <div class="demo-step anim-up anim-up-d5">
+      <div class="d-num">03</div>
+      <h4>Yuboring</h4>
+      <p>Tugmani bosing</p>
+    </div>
+    <div class="demo-step anim-up anim-up-d6">
+      <div class="d-num">04</div>
+      <h4>Telegramni oching</h4>
+      <p>Xabar kelganini ko'ring!</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ SLIDE 7: Roadmap ═══════ -->
+<div class="slide slide-7" data-slide="7">
+  <div class="section-label anim-up anim-up-d1">🗺️ Rivojlanish rejasi</div>
+  <h2 class="anim-up anim-up-d2">Keyingi qadamlar</h2>
+  <div class="roadmap">
+    <div class="roadmap-card anim-up anim-up-d3">
+      <div class="rm-badge now">✅ Hozir tayyor</div>
+      <h3>QR baholash + Telegram</h3>
+      <p>Asosiy tizim ishga tayyor. QR kodlarni bo'limlarga osish kifoya</p>
+    </div>
+    <div class="roadmap-card anim-up anim-up-d4">
+      <div class="rm-badge soon">📅 Yaqin kunlarda</div>
+      <h3>Xodim reytingi</h3>
+      <p>Har bir shifokor va hamshiraning individual reytingi</p>
+    </div>
+    <div class="roadmap-card anim-up anim-up-d5">
+      <div class="rm-badge later">🔜 1 oy ichida</div>
+      <h3>Hisobotlar</h3>
+      <p>Haftalik/oylik PDF hisobotlar, grafiklar, taqqoslash</p>
+    </div>
+    <div class="roadmap-card anim-up anim-up-d6">
+      <div class="rm-badge future">🚀 Kelajakda</div>
+      <h3>Ko'p filial</h3>
+      <p>Bir tizimda bir necha klinikani boshqarish imkoniyati</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ SLIDE 8: Thank You ═══════ -->
+<div class="slide slide-8" data-slide="8">
+  <div class="logo-badge anim-up anim-up-d1">😊</div>
+  <h2 class="anim-up anim-up-d2">Rahmat!</h2>
+  <p class="anim-up anim-up-d3">Savollar bo'lsa — javob berishga tayyormiz</p>
+  <div class="contact anim-up anim-up-d4">
+    🌐 migroup.uz &nbsp;&nbsp;·&nbsp;&nbsp; ✈️ Telegram Bot
+  </div>
+</div>
+
+<!-- ═══════ Navigation ═══════ -->
+<div class="nav-bar">
+  <div class="nav-dot active" onclick="goToSlide(1)"></div>
+  <div class="nav-dot" onclick="goToSlide(2)"></div>
+  <div class="nav-dot" onclick="goToSlide(3)"></div>
+  <div class="nav-dot" onclick="goToSlide(4)"></div>
+  <div class="nav-dot" onclick="goToSlide(5)"></div>
+  <div class="nav-dot" onclick="goToSlide(6)"></div>
+  <div class="nav-dot" onclick="goToSlide(7)"></div>
+  <div class="nav-dot" onclick="goToSlide(8)"></div>
+  <div class="nav-info" id="navInfo">1 / 8</div>
+  <div class="nav-arrows">
+    <button class="nav-btn" onclick="prevSlide()">←</button>
+    <button class="nav-btn" onclick="nextSlide()">→</button>
+  </div>
+</div>
+
+<script>
+  let currentSlide = 1;
+  const totalSlides = 8;
+
+  function goToSlide(n) {
+    if (n < 1 || n > totalSlides || n === currentSlide) return;
+    
+    const oldSlide = document.querySelector(`.slide[data-slide="${currentSlide}"]`);
+    const newSlide = document.querySelector(`.slide[data-slide="${n}"]`);
+    
+    // Direction
+    if (n > currentSlide) {
+      oldSlide.classList.remove('active');
+      oldSlide.classList.add('prev');
+      newSlide.classList.remove('prev');
+    } else {
+      oldSlide.classList.remove('active');
+      newSlide.classList.remove('prev');
+    }
+    
+    setTimeout(() => {
+      oldSlide.classList.remove('prev');
+      newSlide.classList.add('active');
+    }, 20);
+    
+    currentSlide = n;
+    updateNav();
+  }
+
+  function nextSlide() { goToSlide(currentSlide + 1); }
+  function prevSlide() { goToSlide(currentSlide - 1); }
+
+  function updateNav() {
+    document.querySelectorAll('.nav-dot').forEach((dot, i) => {
+      dot.classList.toggle('active', i + 1 === currentSlide);
+    });
+    document.getElementById('navInfo').textContent = `${currentSlide} / ${totalSlides}`;
+    document.getElementById('progressBar').style.width = `${(currentSlide / totalSlides) * 100}%`;
+  }
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'Enter') {
+      e.preventDefault();
+      nextSlide();
+    }
+    if (e.key === 'ArrowLeft' || e.key === 'Backspace') {
+      e.preventDefault();
+      prevSlide();
+    }
+    if (e.key === 'Home') goToSlide(1);
+    if (e.key === 'End') goToSlide(totalSlides);
+  });
+
+  // Touch support
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
+  document.addEventListener('touchend', (e) => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) nextSlide();
+      else prevSlide();
+    }
+  });
+
+  // Click sides to navigate
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('.nav-bar')) return;
+    const x = e.clientX / window.innerWidth;
+    if (x > 0.75) nextSlide();
+    else if (x < 0.25) prevSlide();
+  });
+
+  // Init
+  updateNav();
+</script>
+
+</body>
+</html>

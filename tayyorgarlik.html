@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tayyorgarlik — Shpargalka</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: #f8fafc;
+    color: #1e293b;
+    padding: 40px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #0A9C54;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  .sub {
+    text-align: center;
+    color: #64748b;
+    font-size: 15px;
+    margin-bottom: 40px;
+  }
+  .warning-box {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-bottom: 32px;
+  }
+  .warning-box h3 { color: #ef4444; font-size: 16px; margin-bottom: 8px; }
+  .warning-box ul { padding-left: 20px; color: #991b1b; font-size: 14px; line-height: 1.8; }
+
+  .slide-block {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    page-break-inside: avoid;
+  }
+  .slide-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .slide-num {
+    width: 36px; height: 36px;
+    background: #0A9C54;
+    color: white;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+  .slide-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e293b;
+  }
+  .slide-time {
+    margin-left: auto;
+    background: #f0fdf4;
+    color: #0A9C54;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 8px;
+    white-space: nowrap;
+  }
+
+  .say {
+    background: #f0fdf4;
+    border-left: 4px solid #0A9C54;
+    border-radius: 0 12px 12px 0;
+    padding: 16px 20px;
+    margin: 12px 0;
+  }
+  .say-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #0A9C54;
+    margin-bottom: 6px;
+  }
+  .say p {
+    font-size: 15px;
+    color: #334155;
+    line-height: 1.7;
+    font-style: italic;
+  }
+
+  .do {
+    background: #eff6ff;
+    border-left: 4px solid #2563eb;
+    border-radius: 0 12px 12px 0;
+    padding: 16px 20px;
+    margin: 12px 0;
+  }
+  .do-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #2563eb;
+    margin-bottom: 6px;
+  }
+  .do ul {
+    padding-left: 18px;
+    font-size: 14px;
+    color: #334155;
+    line-height: 1.8;
+  }
+
+  .tip {
+    background: #fff7ed;
+    border-left: 4px solid #ea580c;
+    border-radius: 0 12px 12px 0;
+    padding: 14px 20px;
+    margin: 12px 0;
+  }
+  .tip-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #ea580c;
+    margin-bottom: 4px;
+  }
+  .tip p {
+    font-size: 14px;
+    color: #7c2d12;
+    line-height: 1.6;
+  }
+
+  .qa-section {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 28px 32px;
+    margin-top: 32px;
+  }
+  .qa-section h2 {
+    font-size: 22px;
+    font-weight: 800;
+    color: #1e293b;
+    margin-bottom: 20px;
+  }
+  .qa-item {
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .qa-item:last-child { border-bottom: none; }
+  .qa-q {
+    font-size: 15px;
+    font-weight: 700;
+    color: #ef4444;
+    margin-bottom: 6px;
+  }
+  .qa-a {
+    font-size: 14px;
+    color: #0A9C54;
+    font-weight: 600;
+    line-height: 1.6;
+  }
+
+  .checklist {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    padding: 28px 32px;
+    margin-top: 24px;
+  }
+  .checklist h2 {
+    font-size: 22px;
+    font-weight: 800;
+    color: #1e293b;
+    margin-bottom: 16px;
+  }
+  .checklist ul {
+    list-style: none;
+    padding: 0;
+  }
+  .checklist li {
+    font-size: 15px;
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #334155;
+  }
+  .checklist li::before {
+    content: '☐';
+    font-size: 18px;
+    color: #94a3b8;
+  }
+
+  @media print {
+    body { padding: 20px; }
+    .slide-block { box-shadow: none; break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<h1>🎤 Taqdimot Shpargalkasi</h1>
+<p class="sub">Faqat sizga — har slaydda nima aytish va nima qilishni yozib berdim</p>
+
+<!-- Warning -->
+<div class="warning-box">
+  <h3>⚠️ Taqdimotdan oldin esda tuting:</h3>
+  <ul>
+    <li>Texnik so'zlar ishlatmang (Next.js, Prisma, API — bular kerak emas!)</li>
+    <li>Telefoningiz zaryadli ekanligini tekshiring</li>
+    <li>Internet ishlayotganini tekshiring (Wi-Fi yoki mobil data)</li>
+    <li>Telegram guruhini va shaxsiy chatni ochiq qo'ying</li>
+    <li>migroup.uz saytini bir marta ochib ko'ring — ishlayotganini tekshiring</li>
+  </ul>
+</div>
+
+<!-- SLIDE 1 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">1</div>
+    <div class="slide-title">Kirish sahifasi</div>
+    <div class="slide-time">⏱ 1 daqiqa</div>
+  </div>
+  <div class="say">
+    <div class="say-label">🗣️ Nima deng</div>
+    <p>"Assalomu alaykum! Bugun sizlarga yangi tizimimizni taqdim qilmoqchiman — 
+    Smile Baby Baholash Tizimi. Bu tizim bemorlarimiz fikrini real vaqtda yig'ib, 
+    xizmat sifatini oshirishga yordam beradi."</p>
+  </div>
+  <div class="tip">
+    <div class="tip-label">💡 Maslahat</div>
+    <p>Ishonchli va xotirjam gapiring. Tabassum qiling. Birinchi taassurot muhim!</p>
+  </div>
+</div>
+
+<!-- SLIDE 2 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">2</div>
+    <div class="slide-title">Muammo</div>
+    <div class="slide-time">⏱ 2 daqiqa</div>
+  </div>
+  <div class="say">
+    <div class="say-label">🗣️ Nima deng</div>
+    <p>"Hozir klinikamizda bemorlarning fikrini bilish tizimi yo'q. Bemor kelib-ketadi, 
+    lekin xizmatdan mamnunmi yoki norozimi — bilmaymiz. Agar norozilik bo'lsa, 
+    buni haftalik yig'ilishda eshitamiz — lekin o'sha paytda bemor allaqachon ketgan bo'ladi."</p>
+  </div>
+  <div class="do">
+    <div class="do-label">👆 Nima qiling</div>
+    <ul>
+      <li>Har bir kartochkani ko'rsatib, bir-bir tushuntirib o'ting</li>
+      <li>Rahbarni "ha, biz ham shunday qilamiz" deb bosh irg'atishga olib boring</li>
+    </ul>
+  </div>
+  <div class="tip">
+    <div class="tip-label">💡 Maslahat</div>
+    <p>Bu joyda biroz pauza qiling. Muammoni his qildirib, keyin yechimga o'ting — kontrast kuchli bo'ladi.</p>
+  </div>
+</div>
+
+<!-- SLIDE 3 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">3</div>
+    <div class="slide-title">Yechim — 30 soniyada baholash</div>
+    <div class="slide-time">⏱ 2 daqiqa</div>
+  </div>
+  <div class="say">
+    <div class="say-label">🗣️ Nima deng</div>
+    <p>"Yechimimiz juda oddiy: har bir bo'limga QR kod osib qo'yamiz. Bemor telefonidan skanerlab, 
+    30 soniyada baholaydi. Natija 3 soniya ichida bizning Telegram guruhimizga tushadi. 
+    Hech qanday ilova yuklab olish kerak emas — faqat telefon kamerasi!"</p>
+  </div>
+  <div class="do">
+    <div class="do-label">👆 Nima qiling</div>
+    <ul>
+      <li>Har bir qadamni chapdan o'ngga ko'rsatib o'ting (1→2→3→4)</li>
+      <li>"30 soniya" va "3 soniya" so'zlarini alohida urg'ulab ayting</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SLIDE 4 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">4</div>
+    <div class="slide-title">Telegram integratsiya</div>
+    <div class="slide-time">⏱ 2 daqiqa</div>
+  </div>
+  <div class="say">
+    <div class="say-label">🗣️ Nima deng</div>
+    <p>"Telegramga ikkita xil xabar tushadi. Birinchisi — barcha baholar admin guruhga tushadi, 
+    hamma ko'radi. Ikkinchisi — agar bemor 3 yulduz yoki undan kam baho bersa, yoki telefon 
+    raqamini qoldirsa, menga shaxsan alohida ogohlantirish keladi. Shunda muammoga darhol javob 
+    berishimiz mumkin."</p>
+  </div>
+  <div class="tip">
+    <div class="tip-label">💡 Maslahat</div>
+    <p>"Muammoga darhol javob berish" — bu rahbarni qiziqtiradigan asosiy narsa. Shu joyni urg'ulang!</p>
+  </div>
+</div>
+
+<!-- SLIDE 5 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">5</div>
+    <div class="slide-title">Afzalliklar</div>
+    <div class="slide-time">⏱ 2 daqiqa</div>
+  </div>
+  <div class="say">
+    <div class="say-label">🗣️ Nima deng</div>
+    <p>"Bu tizimning eng katta afzalliklarini sanab o'tay: 
+    birinchidan — tekin, oylik to'lov yo'q. 
+    Ikkinchidan — bemor uchun juda oson, 30 soniya. 
+    Uchinchidan — xabar real vaqtda keladi. 
+    To'rtinchidan — ma'lumotlar o'z serverimizda, xavfsiz."</p>
+  </div>
+  <div class="do">
+    <div class="do-label">👆 Nima qiling</div>
+    <ul>
+      <li>Har bir kartochkani alohida ko'rsatib, qisqa tushuntiring</li>
+      <li>"Tekin" so'zida biroz to'xtang — rahbar eshitishi kerak!</li>
+    </ul>
+  </div>
+</div>
+
+<!-- SLIDE 6 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">6</div>
+    <div class="slide-title">🔴 JONLI DEMO — Eng muhim slayd!</div>
+    <div class="slide-time">⏱ 5 daqiqa</div>
+  </div>
+  <div class="say">
+    <div class="say-label">🗣️ Nima deng</div>
+    <p>"Endi birga sinab ko'raylik! Marhamat, telefoningizni oling va QR kodni skanerlang..."</p>
+  </div>
+  <div class="do">
+    <div class="do-label">👆 Nima qiling — qadam-baqadam</div>
+    <ul>
+      <li><strong>1.</strong> Chop qilgan QR varaqni ko'rsating yoki migroup.uz ni oching</li>
+      <li><strong>2.</strong> RAHBARNING O'Z telefonida skanerlattirib ko'ring! (eng kuchli moment)</li>
+      <li><strong>3.</strong> Bo'limni tanlash → Yulduzlarni bosish → Izoh yozish → Yuborish</li>
+      <li><strong>4.</strong> "Endi Telegramni ochamiz..." — guruhda xabar kelganini ko'rsating</li>
+      <li><strong>5.</strong> YANA BIR MARTA — 2 yulduz + telefon raqami bilan yuboring</li>
+      <li><strong>6.</strong> "Ko'rdingizmi? Menga shaxsiy ogohlantirish ham keldi!" — shaxsiy chatni oching</li>
+    </ul>
+  </div>
+  <div class="tip">
+    <div class="tip-label">💡 Eng muhim maslahat</div>
+    <p>Bu slaydda siz GAPIRMAYSIZ — tizim o'zi gapiradi! Rahbar o'z telefonida ko'rgan narsa 
+    har qanday so'zdan kuchliroq. Xabar kelganida biroz pauza qiling va rahbarning reaksiyasini kuting.</p>
+  </div>
+</div>
+
+<!-- SLIDE 7 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">7</div>
+    <div class="slide-title">Keyingi qadamlar</div>
+    <div class="slide-time">⏱ 1 daqiqa</div>
+  </div>
+  <div class="say">
+    <div class="say-label">🗣️ Nima deng</div>
+    <p>"Tizim hoziroq tayyor va ishlayapti. Keyingi bosqichda har bir shifokorning individual 
+    reytingini qo'shamiz, keyin haftalik hisobotlar va grafiklar, kelajakda esa bir necha 
+    filial bitta tizimdan boshqariladi."</p>
+  </div>
+  <div class="tip">
+    <div class="tip-label">💡 Maslahat</div>
+    <p>"Hoziroq tayyor" so'zini urg'ulang. Rahbar uchun muhim — bu kelajak orzuemas, hozir ishlaydigan tizim!</p>
+  </div>
+</div>
+
+<!-- SLIDE 8 -->
+<div class="slide-block">
+  <div class="slide-header">
+    <div class="slide-num">8</div>
+    <div class="slide-title">Rahmat va Q&A</div>
+    <div class="slide-time">⏱ bekor</div>
+  </div>
+  <div class="say">
+    <div class="say-label">🗣️ Nima deng</div>
+    <p>"Rahmat! Savollaringiz bo'lsa, javob berishga tayyorman."</p>
+  </div>
+  <div class="tip">
+    <div class="tip-label">💡 Maslahat</div>
+    <p>Tabassum qiling va ishonchli ko'ring. Eng yaxshi taqdimotlar qisqa tugaydi!</p>
+  </div>
+</div>
+
+<!-- Q&A Section -->
+<div class="qa-section">
+  <h2>❓ Tushishi mumkin bo'lgan savollar va javoblar</h2>
+  
+  <div class="qa-item">
+    <div class="qa-q">S: "Bu qancha turadi?"</div>
+    <div class="qa-a">J: "Bepul. Biz o'zimiz yaratdik, server xarajati oyiga 50-100 ming so'm atrofida."</div>
+  </div>
+  
+  <div class="qa-item">
+    <div class="qa-q">S: "Bemor noto'g'ri baho bersa-chi?"</div>
+    <div class="qa-a">J: "Har bir baho qayd qilinadi. Bitta noto'g'ri baho umumiy statistikaga ta'sir qilmaydi, lekin muntazam salbiy baholar aniq signaldir."</div>
+  </div>
+  
+  <div class="qa-item">
+    <div class="qa-q">S: "Internetdan har kim kira oladimi?"</div>
+    <div class="qa-a">J: "Ha, lekin QR kod faqat klinikadagi bemorlar ko'radi. Boshqalar sayt manzilini bilmaydi."</div>
+  </div>
+  
+  <div class="qa-item">
+    <div class="qa-q">S: "Qachon boshlaymiz?"</div>
+    <div class="qa-a">J: "Hoziroq tayyor! QR kodlarni chop qilib bo'limlarga osish kifoya — 1 soat ichida ishga tushadi."</div>
+  </div>
+  
+  <div class="qa-item">
+    <div class="qa-q">S: "Ma'lumotlar xavfsizmi?"</div>
+    <div class="qa-a">J: "Ha, ma'lumotlar o'z serverimizda saqlanadi. Google yoki boshqa kompaniya ko'rmaydi."</div>
+  </div>
+  
+  <div class="qa-item">
+    <div class="qa-q">S: "Xodimlar ko'ra oladimi baholarni?"</div>
+    <div class="qa-a">J: "Faqat admin panel orqali, parol bilan. Oddiy xodimlar kirmaydi."</div>
+  </div>
+</div>
+
+<!-- Checklist -->
+<div class="checklist">
+  <h2>✅ Taqdimotdan oldin checklist</h2>
+  <ul>
+    <li>Telefon zaryadli (kamida 50%)</li>
+    <li>Internet ishlayapti (Wi-Fi yoki mobil data)</li>
+    <li>migroup.uz ochiladi va ishlaydi</li>
+    <li>Telegram ochiq — guruh chati va shaxsiy chat</li>
+    <li>QR varaq chop qilingan (yoki demo_qr_varaq.html ochiq)</li>
+    <li>taqdimot.html brauzerda to'liq ekranda ochiq (F11)</li>
+    <li>Kompyuter projektorga ulangan</li>
+    <li>Bir marta sinov baho yuborib ko'rilgan</li>
+  </ul>
+</div>
+
+</body>
+</html>
