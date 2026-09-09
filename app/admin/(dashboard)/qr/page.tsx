@@ -121,13 +121,25 @@ export default function QRPage() {
           </h2>
           <p className="text-sm text-slate-500 mt-1">Bo'limlar va palatalar uchun baholash QR kodlarini yuklab oling yoki chop eting</p>
         </div>
-        <button 
-          onClick={handlePrint}
-          className="bg-slate-900 hover:bg-slate-800 text-white px-5 py-2.5 rounded-xl font-medium transition-colors flex items-center gap-2 shadow-sm cursor-pointer"
-        >
-          <Printer size={18} />
-          <span>Barchasini chop etish</span>
-        </button>
+        <div className="flex items-center gap-3 flex-wrap">
+          <a
+            href="/xona_qr_stand.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-emerald-50 hover:bg-emerald-100 text-[#0A9C54] border border-emerald-200 px-4 py-2.5 rounded-xl font-bold transition-all flex items-center gap-2 shadow-xs cursor-pointer text-sm"
+            title="Statsionar xonalar uchun A6 formatdagi stendlarni chop etish"
+          >
+            <ExternalLink size={16} />
+            <span>Palatalar A6 stendlari</span>
+          </a>
+          <button 
+            onClick={handlePrint}
+            className="bg-slate-900 hover:bg-slate-800 text-white px-5 py-2.5 rounded-xl font-medium transition-colors flex items-center gap-2 shadow-sm cursor-pointer"
+          >
+            <Printer size={18} />
+            <span>Barchasini chop etish</span>
+          </button>
+        </div>
       </div>
 
       {/* Filter and Search Bar - Screen Only */}
