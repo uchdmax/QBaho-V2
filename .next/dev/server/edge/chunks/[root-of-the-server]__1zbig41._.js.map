@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 16, "column": 0}, "map": {"version":3,"sources":["file:///D:/QBahoOvozli/middleware.ts"],"sourcesContent":["import { withAuth } from \"next-auth/middleware\";\nimport { NextRequest } from \"next/server\";\n\nconst authMiddleware = withAuth({\n  pages: {\n    signIn: '/admin/login',\n  },\n});\n\nexport default function middleware(req: NextRequest) {\n  return (authMiddleware as any)(req);\n}\n\nexport const config = {\n  matcher: ['/admin/((?!login).*)'],\n};\n"],"names":["authMiddleware","pages","signIn","middleware","req","config","matcher"],"mappings":";;;;;;AAAA;;AAGA,MAAMA,iBAAiB,IAAA,8JAAQ,EAAC;IAC9BC,OAAO;QACLC,QAAQ;IACV;AACF;AAEe,SAASC,WAAWC,GAAgB;IACjD,OAAO,AAACJ,eAAuBI;AACjC;AAEO,MAAMC,SAAS;IACpBC,SAAS;QAAC;KAAuB;AACnC"}}]
+}
