@@ -12,14 +12,14 @@ export interface ToastMessage {
 export function useToast() {
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
-  const addToast = (message: string, type: ToastType = 'success') => {
+  const addToast = (message: string, type: ToastType = 'success', duration: number = 3000) => {
     const id = Date.now();
     setToasts((prev) => [...prev, { id, message, type }]);
     
-    // Auto remove after 3 seconds
+    // Auto remove after specified duration
     setTimeout(() => {
       removeToast(id);
-    }, 3000);
+    }, duration);
   };
 
   const removeToast = (id: number) => {

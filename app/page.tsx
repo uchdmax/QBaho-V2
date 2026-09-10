@@ -491,11 +491,20 @@ function RatingForm() {
       if (res.ok) {
         setIsSuccess(true);
       } else {
-        throw new Error('Server error');
+        const errorData = await res.json().catch(() => ({}));
+        if (res.status === 429) {
+          addToast(
+            errorData.error || 'Siz yaqinda baholashda qatnashgansiz. Fikringiz uchun rahmat! Iltimos, keyingi bahoni 2 soatdan keyin qoldiring.',
+            'warning',
+            6000
+          );
+          return;
+        }
+        throw new Error(errorData.error || 'Server error');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
-      addToast(t.error, 'error');
+      addToast(error?.message || t.error, 'error');
     } finally {
       setIsSubmitting(false);
     }

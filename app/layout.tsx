@@ -5,6 +5,21 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Smile Baby - Xizmat Sifatini Baholash",
   description: "Smile Baby klinikasi xizmatlarini baholash tizimi",
+  robots: {
+    index: false,
+    follow: false,
+    nocache: true,
+    googleBot: {
+      index: false,
+      follow: false,
+      noimageindex: true,
+    },
+  },
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({

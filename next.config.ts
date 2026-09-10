@@ -40,6 +40,50 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
   allowedDevOrigins,
+  async redirects() {
+    return [
+      {
+        source: '/about',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/services',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/doctors',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/contact',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/blog',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/karyera',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/faq',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/:path*.php',
+        destination: '/',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

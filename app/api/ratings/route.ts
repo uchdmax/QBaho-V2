@@ -18,7 +18,7 @@ export async function POST(request: Request) {
     
     if (!allowed) {
       return NextResponse.json(
-        { success: false, error: 'Juda ko\'p so\'rov. Iltimos 1 soatdan keyin urinib ko\'ring.' },
+        { success: false, error: 'Siz yaqinda baholashda qatnashgansiz. Fikringiz uchun rahmat! Iltimos, keyingi bahoni 2 soatdan keyin qoldiring.' },
         { status: 429, headers: { 'X-RateLimit-Remaining': '0' } }
       );
     }
