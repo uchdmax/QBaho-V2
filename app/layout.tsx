@@ -16,9 +16,9 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/logo.png",
-    shortcut: "/logo.png",
-    apple: "/logo.png",
+    icon: "/qbaho_icon.png",
+    shortcut: "/qbaho_icon.png",
+    apple: "/qbaho_icon.png",
   },
 };
 
