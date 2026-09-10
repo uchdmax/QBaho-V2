@@ -147,8 +147,90 @@ function RatingForm() {
         console.error('Failed to load departments', err);
         setIsLoadingDepts(false);
       });
+  }, [urlDept]);
 
-    // Fetch system settings (e.g., statsionar display order, logo, clinic name)
+  // Navigation helpers that integrate with browser history (for mobile Back button support)
+  const pushNav = (next: {
+    type?: 'general' | 'floor' | null;
+    floor?: number | null;
+    parentDept?: any | null;
+    dept?: string | null;
+  }) => {
+    const newType = next.type !== undefined ? next.type : selectedType;
+    const newFloor = next.floor !== undefined ? next.floor : selectedFloor;
+    const newParent = next.parentDept !== undefined ? next.parentDept : selectedParentDept;
+    const newDept = next.dept !== undefined ? next.dept : selectedDept;
+
+    setSelectedType(newType);
+    setSelectedFloor(newFloor);
+    setSelectedParentDept(newParent);
+    setSelectedDept(newDept);
+    setDeptSearchQuery('');
+
+    if (typeof window !== 'undefined') {
+      window.history.pushState({
+        type: newType,
+        floor: newFloor,
+        parentDept: newParent,
+        dept: newDept
+      }, '');
+    }
+  };
+
+  const handleBack = () => {
+    if (typeof window !== 'undefined' && window.history.state) {
+      window.history.back();
+    } else {
+      if (selectedDept) {
+        setSelectedDept(null);
+      } else if (selectedParentDept) {
+        setSelectedParentDept(null);
+      } else if (selectedFloor !== null) {
+        setSelectedFloor(null);
+      } else if (selectedType) {
+        setSelectedType(null);
+      }
+      setDeptSearchQuery('');
+    }
+  };
+
+  // Synchronize browser and mobile back/forward buttons with app state
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const initialDept = urlDept || (new URLSearchParams(window.location.search).get('dept'));
+    window.history.replaceState({
+      type: null,
+      floor: null,
+      parentDept: null,
+      dept: initialDept || null
+    }, '');
+
+    const onPopState = (e: PopStateEvent) => {
+      const state = e.state;
+      if (state) {
+        setSelectedType(state.type || null);
+        setSelectedFloor(state.floor !== undefined ? state.floor : null);
+        setSelectedParentDept(state.parentDept || null);
+        setSelectedDept(state.dept || null);
+      } else {
+        setSelectedType(null);
+        setSelectedFloor(null);
+        setSelectedParentDept(null);
+        setSelectedDept(null);
+      }
+      setIsSuccess(false);
+      setDeptSearchQuery('');
+    };
+
+    window.addEventListener('popstate', onPopState);
+    return () => {
+      window.removeEventListener('popstate', onPopState);
+    };
+  }, [urlDept]);
+
+  // Fetch system settings (e.g., statsionar display order, logo, clinic name)
+  useEffect(() => {
     fetch('/api/settings')
       .then((res) => res.json())
       .then((data) => {
@@ -158,7 +240,7 @@ function RatingForm() {
         }
       })
       .catch((err) => console.error('Failed to load settings', err));
-  }, [urlDept]);
+  }, []);
   
   const [overallScore, setOverallScore] = useState<number | null>(null);
   const [ratings, setRatings] = useState<Record<number, number>>({});
@@ -629,7 +711,7 @@ function RatingForm() {
         <div className="p-5 sm:p-8 flex-1 flex flex-col justify-center gap-4 sm:gap-5 pb-10">
           <button 
             type="button"
-            onClick={() => setSelectedType('general')}
+            onClick={() => pushNav({ type: 'general', floor: null, parentDept: null, dept: null })}
             className="group relative bg-white p-5 sm:p-6 rounded-[2rem] border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgb(0,0,0,0.08)] hover:border-[#0A9C54]/30 transition-all duration-300 active:scale-[0.98] overflow-hidden cursor-pointer"
           >
             <div className="absolute -top-4 -right-4 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
@@ -648,10 +730,7 @@ function RatingForm() {
 
           <button 
             type="button"
-            onClick={() => {
-              setSelectedType('floor');
-              setSelectedFloor(null);
-            }}
+            onClick={() => pushNav({ type: 'floor', floor: null, parentDept: null, dept: null })}
             className="group relative bg-white p-5 sm:p-6 rounded-[2rem] border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_12px_40px_rgb(0,0,0,0.08)] hover:border-blue-500/30 transition-all duration-300 active:scale-[0.98] overflow-hidden cursor-pointer"
           >
             <div className="absolute -top-4 -right-4 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
@@ -700,10 +779,7 @@ function RatingForm() {
             <div className="flex items-center justify-between mb-3">
               <button 
                 type="button"
-                onClick={() => {
-                  setSelectedParentDept(null);
-                  setDeptSearchQuery('');
-                }} 
+                onClick={handleBack} 
                 className="w-10 h-10 flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 hover:text-slate-900 shadow-xs transition-all active:scale-90 cursor-pointer"
               >
                 <ArrowLeft size={19} />
@@ -750,7 +826,7 @@ function RatingForm() {
               <button
                 type="button"
                 onClick={() => {
-                  setSelectedDept(selectedParentDept.code);
+                  pushNav({ dept: selectedParentDept.code });
                   resetForm();
                 }}
                 className="w-full p-4 rounded-3xl bg-emerald-50/60 border border-[#0A9C54]/20 hover:border-[#0A9C54] hover:bg-emerald-50 transition-all flex items-center justify-between shadow-xs group cursor-pointer text-left"
@@ -791,7 +867,7 @@ function RatingForm() {
                       key={child.code}
                       type="button"
                       onClick={() => {
-                        setSelectedDept(child.code);
+                        pushNav({ dept: child.code });
                         resetForm();
                       }}
                       className="group bg-white p-4 rounded-3xl border border-slate-100 shadow-[0_4px_16px_rgb(0,0,0,0.03)] flex flex-col items-center justify-center gap-2.5 hover:border-[#0A9C54]/40 hover:shadow-[0_8px_24px_rgb(0,0,0,0.06)] hover:-translate-y-1 transition-all duration-300 active:scale-[0.97] cursor-pointer"
@@ -835,11 +911,7 @@ function RatingForm() {
           <div className="flex items-center justify-between mb-3">
             <button 
               type="button"
-              onClick={() => {
-                setSelectedType(null);
-                setSelectedParentDept(null);
-                setDeptSearchQuery('');
-              }} 
+              onClick={handleBack} 
               className="w-10 h-10 flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 hover:text-slate-900 shadow-xs transition-all active:scale-90 cursor-pointer"
             >
               <ArrowLeft size={19} />
@@ -897,10 +969,9 @@ function RatingForm() {
                     type="button"
                     onClick={() => {
                       if (childCount > 0 && !isSearching) {
-                        setSelectedParentDept(d);
-                        setDeptSearchQuery('');
+                        pushNav({ parentDept: d, dept: null });
                       } else {
-                        setSelectedDept(d.code);
+                        pushNav({ dept: d.code });
                         resetForm();
                       }
                     }}
@@ -1010,7 +1081,7 @@ function RatingForm() {
                           key={d.code}
                           type="button"
                           onClick={() => {
-                            setSelectedDept(d.code);
+                            pushNav({ dept: d.code });
                             resetForm();
                           }}
                           className="group bg-white p-4 rounded-2xl border border-slate-100 shadow-xs flex items-center gap-3 hover:border-[#0A9C54]/30 transition-all cursor-pointer text-left"
@@ -1036,7 +1107,7 @@ function RatingForm() {
                           key={d.code}
                           type="button"
                           onClick={() => {
-                            setSelectedDept(d.code);
+                            pushNav({ dept: d.code });
                             resetForm();
                           }}
                           className="group bg-white p-2.5 rounded-2xl border border-slate-200/90 shadow-xs hover:border-[#0A9C54] hover:bg-emerald-50/40 transition-all active:scale-95 flex flex-col items-center justify-center text-center cursor-pointer"
@@ -1083,12 +1154,12 @@ function RatingForm() {
                 type="button"
                 onClick={() => {
                   if (floorRooms.length > 0) {
-                    setSelectedFloor(fl);
+                    pushNav({ floor: fl, dept: null });
                   } else if (summaryDept) {
-                    setSelectedDept(summaryDept.code);
+                    pushNav({ dept: summaryDept.code });
                     resetForm();
                   } else {
-                    setSelectedFloor(fl);
+                    pushNav({ floor: fl, dept: null });
                   }
                 }}
                 className="w-full group bg-white p-4 sm:p-5 rounded-3xl border border-slate-100 shadow-[0_4px_16px_rgb(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgb(0,0,0,0.06)] hover:border-[#0A9C54]/40 transition-all duration-200 active:scale-[0.98] flex items-center justify-between cursor-pointer text-left"
@@ -1103,8 +1174,8 @@ function RatingForm() {
                     </h3>
                     <p className="text-xs text-slate-400 mt-0.5">
                       {floorRooms.length > 0 
-                        ? `${floorRooms.length} ${t.roomsCount} (${floorRooms[0] ? extractRoomNumber(floorRooms[0].name) : ''}–${floorRooms[floorRooms.length - 1] ? extractRoomNumber(floorRooms[floorRooms.length - 1].name) : ''})` 
-                        : (lang === 'uz' ? 'Yotib davolanish palatalari' : 'Палаты стационара')}
+                        ? `${floorRooms.length} ${t.roomsCount}` 
+                        : (lang === 'uz' ? "Umumiy bo'lim" : "Общее отделение")}
                     </p>
                   </div>
                 </div>
@@ -1133,7 +1204,7 @@ function RatingForm() {
               key={d.code}
               type="button"
               onClick={() => {
-                setSelectedDept(d.code);
+                pushNav({ dept: d.code });
                 resetForm();
               }}
               className="group bg-white p-4 rounded-3xl border border-slate-100 shadow-[0_4px_16px_rgb(0,0,0,0.03)] hover:shadow-[0_8px_24px_rgb(0,0,0,0.06)] hover:border-[#0A9C54]/30 hover:-translate-y-0.5 transition-all duration-200 active:scale-[0.97] flex flex-col items-center justify-center text-center gap-2.5 cursor-pointer"
@@ -1159,10 +1230,7 @@ function RatingForm() {
           <div className="flex items-center justify-between mb-3">
             <button 
               type="button"
-              onClick={() => {
-                setSelectedType(null);
-                setDeptSearchQuery('');
-              }} 
+              onClick={handleBack} 
               className="w-10 h-10 flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 hover:text-slate-900 shadow-xs transition-all active:scale-90 cursor-pointer"
             >
               <ArrowLeft size={19} />
@@ -1232,10 +1300,7 @@ function RatingForm() {
           <div className="flex items-center justify-between mb-3">
             <button 
               type="button"
-              onClick={() => {
-                setSelectedFloor(null);
-                setDeptSearchQuery('');
-              }} 
+              onClick={handleBack} 
               className="w-10 h-10 flex items-center justify-center rounded-full bg-white border border-slate-200 text-slate-600 hover:text-slate-900 shadow-xs transition-all active:scale-90 cursor-pointer"
             >
               <ArrowLeft size={19} />
@@ -1285,7 +1350,7 @@ function RatingForm() {
             <button
               type="button"
               onClick={() => {
-                setSelectedDept(floorSummaryDept.code);
+                pushNav({ dept: floorSummaryDept.code });
                 resetForm();
               }}
               className="w-full bg-emerald-50/70 border border-emerald-200/80 hover:bg-emerald-100/70 p-3.5 rounded-2xl flex items-center justify-between transition-all active:scale-[0.98] cursor-pointer text-left"
@@ -1329,7 +1394,7 @@ function RatingForm() {
                     key={d.code}
                     type="button"
                     onClick={() => {
-                      setSelectedDept(d.code);
+                      pushNav({ dept: d.code });
                       resetForm();
                     }}
                     className="group bg-white p-2.5 sm:p-3 rounded-2xl border border-slate-200/90 shadow-[0_2px_8px_rgb(0,0,0,0.02)] hover:border-[#0A9C54] hover:bg-emerald-50/40 hover:shadow-md transition-all duration-200 active:scale-95 flex flex-col items-center justify-center text-center relative cursor-pointer"
@@ -1367,6 +1432,7 @@ function RatingForm() {
     RELATIVE: t.roleRelative
   };
 
+  // 4. Criteria Rating Screen (Single Form for all criteria of the selected department)
   return (
     <div className="max-w-lg w-full bg-white sm:rounded-[2.5rem] sm:shadow-[0_20px_60px_rgb(0,0,0,0.08)] sm:border border-slate-100 overflow-hidden min-h-screen sm:min-h-[640px] relative flex flex-col">
       <ToastContainer />
@@ -1379,7 +1445,7 @@ function RatingForm() {
               if (urlDept) {
                 window.location.href = '/';
               } else {
-                setSelectedDept(null);
+                handleBack();
               }
             }} 
             className="w-10 h-10 flex items-center justify-center rounded-full bg-slate-50 border border-slate-200 text-slate-600 hover:text-slate-900 hover:bg-slate-100 shadow-xs transition-all active:scale-90 cursor-pointer flex-shrink-0"

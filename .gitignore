@@ -15,6 +15,8 @@
 
 # next.js
 # /.next/
+.next/cache
+*.map
 /out/
 
 # production
