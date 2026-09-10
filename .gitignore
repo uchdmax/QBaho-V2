@@ -15,7 +15,8 @@
 
 # next.js
 # /.next/
-.next/cache
+.next/dev/
+.next/cache/
 *.map
 /out/
 
